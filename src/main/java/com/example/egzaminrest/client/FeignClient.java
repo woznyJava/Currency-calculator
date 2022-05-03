@@ -5,6 +5,8 @@ import feign.Param;
 import feign.RequestLine;
 
 public interface FeignClient {
-    @RequestLine("GET ?access_key={token}")
-    ExchangeDTO getRates(@Param("token") String token);
+    @RequestLine("GET ?apikey={token}&base={from}&symbols={to}")
+    ExchangeDTO getRates(@Param("token") String token,
+                         @Param("from") String from,
+                         @Param("to") String to);
 }

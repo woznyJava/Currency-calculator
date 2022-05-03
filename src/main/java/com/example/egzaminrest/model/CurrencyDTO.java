@@ -10,9 +10,9 @@ public class CurrencyDTO {
     private double ammount;
 
     private static CurrencyDTO theLargestAmount(Currency currency){
-return CurrencyDTO.builder()
-        .id(currency.getId())
-        .ammount(currency.getAmount())
-        .build();
-    }
+        return CurrencyDTO.builder()
+                .id(currency.getId())
+                .ammount(currency.getAmount())
+                .build();
+            }
 }

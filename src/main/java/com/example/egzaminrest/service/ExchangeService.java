@@ -22,12 +22,8 @@ public class ExchangeService {
         return exchangeProperties.getToken();
     }
 
-    public ExchangeDTO getExchangeRates() {
-        return getExchangeClientFeign().getRates(exchangeProperties.getToken());
-    }
-
-    public double getAmount(){
-return
+    public Double getRate(String from, String to) {
+        return getExchangeClientFeign().getRates(exchangeProperties.getToken(), from, to).getRate(to);
     }
 
     private static FeignClient getExchangeClientFeign() {
@@ -37,6 +33,6 @@ return
                 .decoder(new GsonDecoder())
                 .logger(new Slf4jLogger(FeignClient.class))
                 .logLevel(Logger.Level.FULL)
-                .target(FeignClient.class, "http://api.exchangeratesapi.io/v1/latest");
+                .target(FeignClient.class, "https://api.apilayer.com/exchangerates_data/latest");
     }
 }
