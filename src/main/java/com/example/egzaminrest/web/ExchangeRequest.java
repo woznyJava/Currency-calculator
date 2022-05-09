@@ -18,7 +18,4 @@ public class ExchangeRequest {
             .proxy(ProxySelector.of(new InetSocketAddress("proxy.example.com", 80)))
             .authenticator(Authenticator.getDefault())
             .build();
-
-
-
 }
