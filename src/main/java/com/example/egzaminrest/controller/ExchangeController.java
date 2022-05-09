@@ -26,7 +26,7 @@ public class ExchangeController {
                               @RequestParam("to") String to,
                               @RequestParam("amount") Double amount) {
 
-        var value = exchangeService.getRate(from, to) * amount;
+        var value = exchangeService.getRate(from, to);
 
         stats.updateMax(amount * value);
         stats.updateNumber();
