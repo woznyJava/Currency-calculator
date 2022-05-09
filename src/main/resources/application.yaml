@@ -9,6 +9,6 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
 
 exchange:
-  token: decc2f1378fdd448f7596b870cf25d32
+  token: HSnW0EjDsAIGf5DRt8w03hFBxwSe9Mpq
 
 

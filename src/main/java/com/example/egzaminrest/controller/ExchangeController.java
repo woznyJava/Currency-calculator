@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-import java.util.Random;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,7 +14,7 @@ import java.util.Random;
 public class ExchangeController {
 
     private final ExchangeService exchangeService;
-    private Stats stats = new Stats(1.0,0,"EUR");
+    private Stats stats = new Stats();
 
     @GetMapping("/token")
     public Map<String, String> getToken() {
@@ -23,28 +22,24 @@ public class ExchangeController {
     }
 
     @PostMapping("/calculate")
-    public void getCurrency(@RequestParam("from") String from,
+    public Result getCurrency(@RequestParam("from") String from,
                               @RequestParam("to") String to,
                               @RequestParam("amount") Double amount) {
-//Result result = new Result(from,to,amount);
 
-//            exchangeService.updateStatics(from,to, amount);
-            exchangeService.save(new Result(new Random().nextLong(), from,to, amount));
+        var value = exchangeService.getRate(from, to) * amount;
 
-//        int numer = stats.getNumberOfInquiries() +1;
-//        stats.setNumberOfInquiries(numer);
-//        if (amount > stats.getMax()){
-//            stats.setMax(amount);
-//        }
+        stats.updateMax(amount * value);
+        stats.updateNumber();
+        stats.updateForm(to);
+
+        return new Result(from, to, value);
     }
 
-    // ogarnac to wszystko w metodzie w servisie ^ 4
-    // przy okazji adnotacja o transakcjach
     @GetMapping("/stats")
     public Stats getCalculateStats() {
-        exchangeService.getTheMostPopularFrom();
         return stats;
     }
+
     @GetMapping("/from")
     public void getFrom() {
          exchangeService.getTheMostPopularFrom();
