@@ -30,7 +30,7 @@ public class ExchangeController {
 
         stats.updateMax(amount * value);
         stats.updateNumber();
-        stats.updateForm(to);
+        stats.updateForm(from);
 
         return new Result(from, to, value);
     }

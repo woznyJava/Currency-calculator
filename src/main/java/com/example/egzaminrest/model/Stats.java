@@ -21,11 +21,11 @@ public class Stats {
         this.numberOfInquiries++;
     }
 
-    public void updateForm(String to) {
-        if (!this.forms.containsKey(to)) {
-            this.forms.put(to, 1);
+    public void updateForm(String value) {
+        if (!this.forms.containsKey(value)) {
+            this.forms.put(value, 1);
         } else {
-            this.forms.put(to, this.forms.get(to) + 1);
+            this.forms.put(value, this.forms.get(value) + 1);
         }
 
         String form = "";
