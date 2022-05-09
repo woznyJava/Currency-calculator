@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Random;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,7 +29,7 @@ public class ExchangeController {
 //Result result = new Result(from,to,amount);
 
 //            exchangeService.updateStatics(from,to, amount);
-            exchangeService.save(new Result(from,to, amount));
+            exchangeService.save(new Result(new Random().nextLong(), from,to, amount));
 
 //        int numer = stats.getNumberOfInquiries() +1;
 //        stats.setNumberOfInquiries(numer);

@@ -25,14 +25,6 @@ public class Result {
     private String to;
     private Double value;
 
-    public Result(String from, String to, Double amount) {
-    }
-
-//    public Result(String from, String to, Double value) {
-//        this.from = from;
-//        this.to = to;
-//        this.value = value;
-//    }
 }
 //mape zrobic i szukac komenda najwieszkej ammount i po id zwrocic najwieksza. Njaczesniej wyliczna to dodac do liczby int
 //i co uzycie zrobic +1
