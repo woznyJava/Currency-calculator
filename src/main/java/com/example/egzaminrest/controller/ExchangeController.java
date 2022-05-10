@@ -12,7 +12,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/exchange")
 public class ExchangeController {
-
     private final ExchangeService exchangeService;
     private Stats stats = new Stats();
 
@@ -25,9 +24,16 @@ public class ExchangeController {
     public Result getCurrency(@RequestParam("from") String from,
                               @RequestParam("to") String to,
                               @RequestParam("amount") Double amount) {
+        Double value = 0.00;
+        exchangeService.checkFromAndTo(from, to);
 
-        var value = exchangeService.getRate(from, to);
 
+//        try {
+//             value = exchangeService.getRate(from, to);
+//        } catch (Exception err) {
+//            throw new RuntimeException("Unknown worth");
+//        }
+//        value = exchangeService.getRate(from, to);
         stats.updateMax(amount * value);
         stats.updateNumber();
         stats.updateForm(from);
@@ -39,10 +45,4 @@ public class ExchangeController {
     public Stats getCalculateStats() {
         return stats;
     }
-
-    @GetMapping("/from")
-    public void getFrom() {
-         exchangeService.getTheMostPopularFrom();
-    }
-
 }

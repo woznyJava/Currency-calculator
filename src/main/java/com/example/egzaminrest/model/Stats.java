@@ -1,11 +1,15 @@
 package com.example.egzaminrest.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Data
+@Getter
+@Setter
 public class Stats {
     private Double max = 0.0;
     private int numberOfInquiries = 0;
@@ -37,8 +41,6 @@ public class Stats {
                 counter = this.forms.get(key);
             }
         }
-
         this.theMostPopularForm = form;
     }
-
 }
