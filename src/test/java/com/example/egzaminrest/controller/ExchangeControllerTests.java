@@ -38,29 +38,29 @@ public class ExchangeControllerTests {
 
     @Test
     public void shouldReturnStats() throws Exception {
-//        exchangeController.getCurrency("GBP", "PLN", 200.00);
-        Stats stats = new Stats();
-        stats.updateFrom("GBP");
-        stats.updateMax(200.00);
-        stats.updateNumber();
+//        exchangeController.c("GBP", "PLN", 200.00);
+//        Stats stats = new Stats();
+//        stats.updateFrom("GBP");
+//        stats.updateMax(200.00);
+//        stats.updateNumber();
 
-        mockMvc.perform(get("/stats"))
+        mockMvc.perform(post("/stats"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect((ResultMatcher) jsonPath("$.from", is("GBP")))
                         .andExpect((ResultMatcher) jsonPath("$.to", is("PLN")))
                         .andExpect((ResultMatcher) jsonPath("$.amount", is(200.00)));
 
+
     }
 @Test
 public void calculateTest() throws Exception {
-        Result result = new Result(1,"GBP", "PLN", 200.00);
-    this.mockMvc.perform(post("/calculate")).andDo(print())
-            .andExpect(status().isOk()).andExpect(content()
-                    .contentType("application/json;charset=UTF-8"))
-            .andExpect(jsonPath("$.from").value("GBP"))
-            .andExpect(jsonPath("$.to").value("PLN"))
-            .andExpect(jsonPath("$.amount").value(200.00));
+    mockMvc.perform(post("/stats"))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andExpect((ResultMatcher) jsonPath("$.from", is("UncorrectFrom")))
+            .andExpect((ResultMatcher) jsonPath("$.to", is("PLN")))
+            .andExpect((ResultMatcher) jsonPath("$.amount", is(200.00)));
 
 }
 }

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -27,10 +28,10 @@ import java.util.Random;
 @RequiredArgsConstructor
 
 public class ExchangeService {
+
     @Autowired
     private final ExchangeRepository exchangeRepository;
     private final ExchangeProperties exchangeProperties;
-//    private Stats stats = new Stats();
 
     public String getToken() {
         return exchangeProperties.getToken();
@@ -69,15 +70,25 @@ public Double convert(String from, String to, Double amount) {
     return value * amount;
 }
 
+public String getStats() {
+        List<Result> listResults = exchangeRepository.findAll();
+    Iterator<Result> iterator = listResults.iterator();
+    Stats statsReturn = new Stats();
 
-//public void updateStats(String from, String to, Double value ) {
-//        Double amount = convert(from,to,value);
-//        if (stats.getMax() < amount) {
-//            stats.updateMax(amount);
-//        }
-//        stats.updateNumber();
-//        stats.updateFrom(from);
-//
-//    }
+    while (iterator.hasNext() ) {
+        Result result = iterator.next();
+        Double amount = convert(result.getFrom(), result.getTo(), result.getAmount());
+        Stats stats = new Stats(0.0, 0," ");
+        if (stats.getMax()< amount) {
+            stats.updateMax(amount);
+        }
+        stats.updateNumber();
+        stats.updateFrom(result.getFrom());
+       statsReturn.setMax(stats.getMax());
+        statsReturn.setTheMostPopularForm(stats.getTheMostPopularForm());
+        statsReturn.setNumberOfInquiries(stats.getNumberOfInquiries());
+    }
+    return statsReturn.toString();
+    }
 }
 

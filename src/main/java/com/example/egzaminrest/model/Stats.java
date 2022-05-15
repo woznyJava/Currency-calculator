@@ -1,19 +1,31 @@
 package com.example.egzaminrest.model;
 
+import com.sun.istack.NotNull;
+import com.sun.istack.Nullable;
 import lombok.*;
 
 import java.util.HashMap;
 import java.util.Map;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+
 public class Stats {
+    @NotNull
+    @Nullable
     private Double max = 0.0;
     private int numberOfInquiries = 0;
-    private String theMostPopularForm = "PLN";
-    private  Map<String, Integer> forms = new HashMap<String, Integer>();
+    private String theMostPopularForm = "";
 
+   Map<String, Integer> forms = new HashMap<String, Integer>();
+
+    public Stats(Double max, int numberOfInquiries, String theMostPopularForm) {
+        this.max = max;
+        this.numberOfInquiries = numberOfInquiries;
+        this.theMostPopularForm = theMostPopularForm;
+    }
 
     public void updateMax(Double max) {
         this.max = Math.max(this.max, max);
@@ -40,5 +52,22 @@ public class Stats {
             }
         }
         this.theMostPopularForm = form;
+    }
+    @Nullable
+    @NotNull
+    public Double getMaxValue(){
+        if (max == null){
+            setMax(0.0);
+        }
+        return max;
+    }
+
+    @Override
+    public String toString() {
+        return "Stats{" +
+                "max=" + max +
+                ", numberOfInquiries=" + numberOfInquiries +
+                ", theMostPopularForm='" + theMostPopularForm + '\'' +
+                '}';
     }
 }

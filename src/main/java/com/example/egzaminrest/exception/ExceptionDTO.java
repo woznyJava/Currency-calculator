@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 
 @Builder
 public class ExceptionDTO {
-
         private String message;
         private LocalDateTime occurrence;
 

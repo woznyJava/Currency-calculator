@@ -8,7 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ExchangeRepository extends CrudRepository<Result, Integer> {
-    List<Result> findALL();
+    List<Result> findAll();
 }
-// exchange bedzie szedl do bazy
-// w serwisie zlicza wszystko robi stats i zwraca
