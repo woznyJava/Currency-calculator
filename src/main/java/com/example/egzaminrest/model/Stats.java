@@ -1,20 +1,18 @@
 package com.example.egzaminrest.model;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashMap;
 import java.util.Map;
-
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class Stats {
     private Double max = 0.0;
     private int numberOfInquiries = 0;
     private String theMostPopularForm = "PLN";
-    Map<String, Integer> forms = new HashMap<String, Integer>();
+    private  Map<String, Integer> forms = new HashMap<String, Integer>();
 
 
     public void updateMax(Double max) {
@@ -25,7 +23,7 @@ public class Stats {
         this.numberOfInquiries++;
     }
 
-    public void updateForm(String value) {
+    public void updateFrom(String value) {
         if (!this.forms.containsKey(value)) {
             this.forms.put(value, 1);
         } else {

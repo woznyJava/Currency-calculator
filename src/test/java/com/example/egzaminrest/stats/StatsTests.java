@@ -9,10 +9,10 @@ public class StatsTests {
     @Test
     public void shouldUpdateForm(){
         Stats stats = new Stats();
-        stats.updateForm("USD");
-        stats.updateForm("EUR");
-        stats.updateForm("USD");
-        stats.updateForm("PLN");
+        stats.updateFrom("USD");
+        stats.updateFrom("EUR");
+        stats.updateFrom("USD");
+        stats.updateFrom("PLN");
         assert Objects.equals(stats.getTheMostPopularForm(), "USD");
     }
     @Test
