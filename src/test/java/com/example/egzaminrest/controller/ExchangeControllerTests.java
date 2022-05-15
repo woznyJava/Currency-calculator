@@ -23,8 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class ExchangeControllerTests {
-
-
     @Autowired
     private ExchangeController exchangeController;
 
@@ -37,30 +35,30 @@ public class ExchangeControllerTests {
     }
 
     @Test
+    public void shouldReturnValidCurrencyInDouble() throws Exception {
+        mockMvc.perform(post("/exchange/calculate")
+                        .param("from", "USD")
+                        .param("to", "PLN")
+                        .param("amount", String.valueOf(25.0))
+                ).andExpect(status().isOk())
+                 .andDo(handler -> {
+                    assert Double.parseDouble(handler.getResponse().getContentAsString()) > 0.0;
+                 });
+    }
+    
+    @Test
     public void shouldReturnStats() throws Exception {
-//        exchangeController.c("GBP", "PLN", 200.00);
-//        Stats stats = new Stats();
-//        stats.updateFrom("GBP");
-//        stats.updateMax(200.00);
-//        stats.updateNumber();
+        mockMvc.perform(post("/exchange/calculate")
+                .param("from", "USD")
+                .param("to", "PLN")
+                .param("amount", String.valueOf(25.0))
+        );
 
-        mockMvc.perform(post("/stats"))
-                .andDo(print())
+        mockMvc.perform(get("/exchange/stats"))
                 .andExpect(status().isOk())
-                .andExpect((ResultMatcher) jsonPath("$.from", is("GBP")))
-                        .andExpect((ResultMatcher) jsonPath("$.to", is("PLN")))
-                        .andExpect((ResultMatcher) jsonPath("$.amount", is(200.00)));
-
+                .andDo(handler -> {
+                    assert handler.getResponse().getContentLength() > 0;
+                });
 
     }
-@Test
-public void calculateTest() throws Exception {
-    mockMvc.perform(post("/stats"))
-            .andDo(print())
-            .andExpect(status().isOk())
-            .andExpect((ResultMatcher) jsonPath("$.from", is("UncorrectFrom")))
-            .andExpect((ResultMatcher) jsonPath("$.to", is("PLN")))
-            .andExpect((ResultMatcher) jsonPath("$.amount", is(200.00)));
-
-}
 }
