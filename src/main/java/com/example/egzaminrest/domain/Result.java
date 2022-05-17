@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class Result {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer resultId;
+    private Integer id;
     @Column(name = "_from")
     private String from;
     @Column(name = "_to")
@@ -24,6 +24,4 @@ public class Result {
     @Column(name = "_amount")
     private Double amount;
 
-//    public Result(String from, String to, Double ammount) {
-//    }
 }

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface ExchangeRepository extends CrudRepository<Result, Integer> {
     List<Result> findAll();
 }

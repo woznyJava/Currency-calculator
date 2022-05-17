@@ -3,7 +3,9 @@ package com.example.egzaminrest.client;
 import com.example.egzaminrest.model.ExchangeDTO;
 import feign.Param;
 import feign.RequestLine;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface FeignClient {
     @RequestLine("GET ?apikey={token}&base={from}&symbols={to}")
     ExchangeDTO getRates(@Param("token") String token,

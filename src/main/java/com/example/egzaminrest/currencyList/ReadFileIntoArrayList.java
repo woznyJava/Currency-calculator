@@ -1,12 +1,12 @@
 package com.example.egzaminrest.currencyList;
 
+import org.springframework.stereotype.Component;
 
-import lombok.experimental.UtilityClass;
 
 import java.io.*;
 import java.util.List;
 
-@UtilityClass
+@Component
 public class ReadFileIntoArrayList {
 
     public List<String> getReader(List<String> list) throws IOException {

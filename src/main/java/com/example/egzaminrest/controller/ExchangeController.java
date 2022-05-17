@@ -25,9 +25,9 @@ public class ExchangeController {
                               @RequestParam("to") String to,
                               @RequestParam("amount") Double amount) throws IOException {
 
-
         exchangeService.checkFromAndTo(from, to);
         exchangeService.save(from,to,amount);
+
         return exchangeService.convert(from,to,amount);
     }
 

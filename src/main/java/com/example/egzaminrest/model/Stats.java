@@ -13,8 +13,6 @@ import java.util.Map;
 @Setter
 
 public class Stats {
-    @NotNull
-    @Nullable
     private Double max = 0.0;
     private int numberOfInquiries = 0;
     private String theMostPopularForm = "";
@@ -52,14 +50,6 @@ public class Stats {
             }
         }
         this.theMostPopularForm = form;
-    }
-    @Nullable
-    @NotNull
-    public Double getMaxValue(){
-        if (max == null){
-            setMax(0.0);
-        }
-        return max;
     }
 
     @Override
