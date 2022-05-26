@@ -1,7 +1,5 @@
 package com.example.egzaminrest.model;
 
-import com.sun.istack.NotNull;
-import com.sun.istack.Nullable;
 import lombok.*;
 
 import java.util.HashMap;
@@ -15,41 +13,35 @@ import java.util.Map;
 public class Stats {
     private Double max = 0.0;
     private int numberOfInquiries = 0;
-    private String theMostPopularForm = "";
+    private String theMostPopularFrom = "";
 
-   Map<String, Integer> forms = new HashMap<String, Integer>();
-
-    public Stats(Double max, int numberOfInquiries, String theMostPopularForm) {
-        this.max = max;
-        this.numberOfInquiries = numberOfInquiries;
-        this.theMostPopularForm = theMostPopularForm;
-    }
+    Map<String, Integer> froms = new HashMap<String, Integer>();
 
     public void updateMax(Double max) {
         this.max = Math.max(this.max, max);
     }
 
-    public void updateNumber() {
+    public void increaseNumber() {
         this.numberOfInquiries++;
     }
 
-    public void updateFrom(String value) {
-        if (!this.forms.containsKey(value)) {
-            this.forms.put(value, 1);
+    public void updateFroms(String value) {
+        if (!this.froms.containsKey(value)) {
+            this.froms.put(value, 1);
         } else {
-            this.forms.put(value, this.forms.get(value) + 1);
+            this.froms.put(value, this.froms.get(value) + 1);
         }
 
         String form = "";
         Integer counter = 0;
 
-        for (var key : this.forms.keySet()) {
-            if (this.forms.get(key) > counter) {
+        for (var key : this.froms.keySet()) {
+            if (this.froms.get(key) > counter) {
                 form = key;
-                counter = this.forms.get(key);
+                counter = this.froms.get(key);
             }
         }
-        this.theMostPopularForm = form;
+        this.theMostPopularFrom = form;
     }
 
     @Override
@@ -57,7 +49,7 @@ public class Stats {
         return "Stats{" +
                 "max=" + max +
                 ", numberOfInquiries=" + numberOfInquiries +
-                ", theMostPopularForm='" + theMostPopularForm + '\'' +
+                ", theMostPopularForm='" + theMostPopularFrom + '\'' +
                 '}';
     }
 }

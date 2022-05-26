@@ -2,7 +2,7 @@ package com.example.egzaminrest.model;
 
 import lombok.Data;
 
-import java.util.Map;
+import java.util.*;
 
 @Data
 public class ExchangeDTO {
@@ -15,6 +15,5 @@ public class ExchangeDTO {
     public Double getRate(String name) {
         return this.rates.get(name);
     }
-
-
 }
+

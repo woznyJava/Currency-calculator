@@ -23,5 +23,7 @@ public class Result {
     private String to;
     @Column(name = "_amount")
     private Double amount;
+    @Column(name = "_amountConverted")
+    private Double amountConverted;
 
 }
