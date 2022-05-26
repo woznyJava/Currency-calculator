@@ -41,7 +41,7 @@ public class ExchangeService {
         return new ExchangeResponse(convertedAmount);
     }
 
-    private Double convert(String from, String to, Double amount) {
+    public Double convert(String from, String to, Double amount) {
         Double rate = feignExchangeService.getFeignExchange(from, to).getRate(to);
 
         return amount * rate;
