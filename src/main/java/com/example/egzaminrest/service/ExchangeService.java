@@ -26,11 +26,11 @@ public class ExchangeService {
         Double amount = request.getAmount();
 
         if (!isExchangeValid(from)) {
-            return new ExchangeError("UNKNOWN_FROM_CURRENCY_FORMAT");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("UNKNOWN_FROM_CURRENCY_FORMAT");
         }
 
         if (!isExchangeValid(to)) {
-            return new ExchangeError("UNKNOWN_TO_CURRENCY_FORMAT");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("UNKNOWN_TO_CURRENCY_FORMAT");
         }
 
         Double convertedAmount = convert(from, to, amount);
