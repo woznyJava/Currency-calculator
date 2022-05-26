@@ -20,7 +20,7 @@ public class ExchangeController {
 
 
     @PostMapping("/calculate")
-    public ExchangeResponse currency(@RequestBody ExchangeRequest request){
+    public Object currency(@RequestBody ExchangeRequest request){
         return exchangeService.getExchange(request);
     }
 

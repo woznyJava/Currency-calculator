@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ExchangeResponse {
-    private Double amount;
+public class ExchangeError {
+    private String message;
 }

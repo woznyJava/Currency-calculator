@@ -1,6 +1,7 @@
 package com.example.egzaminrest.service;
 
 import com.example.egzaminrest.domain.Result;
+import com.example.egzaminrest.model.ExchangeError;
 import com.example.egzaminrest.model.ExchangeRequest;
 import com.example.egzaminrest.model.ExchangeResponse;
 import com.example.egzaminrest.model.Stats;
@@ -19,24 +20,41 @@ public class ExchangeService {
     private final FeignExchangeService feignExchangeService;
     private final ExchangeRepository exchangeRepository;
 
-    public ExchangeResponse getExchange(ExchangeRequest request) {
+    public Object getExchange(ExchangeRequest request) {
+        String from = request.getFrom();
+        String to = request.getTo();
+        Double amount = request.getAmount();
 
-        try {
-            feignExchangeService.getFeignExchange(request.getFrom(), request.getTo()).getRates();
-        } catch (Exception e) {
-            return new ExchangeResponse("UNKNOWN_CURRENCY_FORMAT", 0.0, false, e.getMessage());
+        if (!isExchangeValid(from)) {
+            return new ExchangeError("UNKNOWN_FROM_CURRENCY_FORMAT");
         }
-        Double convertedAmount = convert(request);
 
-        Result result = new Result(null, request.getFrom(), request.getTo(), request.getAmount(), convertedAmount);
+        if (!isExchangeValid(to)) {
+            return new ExchangeError("UNKNOWN_TO_CURRENCY_FORMAT");
+        }
+
+        Double convertedAmount = convert(from, to, amount);
+
+        Result result = new Result(null, from, to, amount, convertedAmount);
         save(result);
 
-        return new ExchangeResponse("", convertedAmount, true, "");
+        return new ExchangeResponse(convertedAmount);
     }
 
-    private Double convert(ExchangeRequest request) {
-        double value = getRate(request.getFrom(), request.getTo());
-        return value * request.getAmount();
+    private Double convert(String from, String to, Double amount) {
+        Double rate = feignExchangeService.getFeignExchange(from, to).getRate(to);
+
+        return amount * rate;
+    }
+
+    public Boolean isExchangeValid(String exchange) {
+        try {
+            convert(exchange, exchange, 100.0);
+        } catch (Exception err) {
+            return false;
+        }
+
+        return true;
     }
 
     public Double getRate(String from, String to) {
