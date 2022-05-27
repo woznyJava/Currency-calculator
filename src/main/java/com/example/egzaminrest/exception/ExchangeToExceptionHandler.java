@@ -12,7 +12,7 @@ public class ExchangeToExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionDTO handleMailToException(ToException toException) {
         return ExceptionDTO.fromException(toException);
-        }
+    }
 }
 
 

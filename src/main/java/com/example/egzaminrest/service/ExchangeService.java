@@ -1,7 +1,6 @@
 package com.example.egzaminrest.service;
 
 import com.example.egzaminrest.domain.Result;
-import com.example.egzaminrest.model.ExchangeError;
 import com.example.egzaminrest.model.ExchangeRequest;
 import com.example.egzaminrest.model.ExchangeResponse;
 import com.example.egzaminrest.model.Stats;
@@ -26,11 +25,11 @@ public class ExchangeService {
         Double amount = request.getAmount();
 
         if (!isExchangeValid(from)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("UNKNOWN_FROM_CURRENCY_FORMAT");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("UNKNOWN_CURRENCY_FROM");
         }
 
         if (!isExchangeValid(to)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("UNKNOWN_TO_CURRENCY_FORMAT");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("UNKNOWN_CURRENCY_TO");
         }
 
         Double convertedAmount = convert(from, to, amount);
@@ -55,10 +54,6 @@ public class ExchangeService {
         }
 
         return true;
-    }
-
-    public Double getRate(String from, String to) {
-        return feignExchangeService.getFeignExchange(from, to).getRate(to);
     }
 
     public void save(Result result) {
