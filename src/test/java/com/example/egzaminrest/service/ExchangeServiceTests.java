@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
@@ -28,14 +29,11 @@ public class ExchangeServiceTests {
     @Mock
     private ExchangeRepository exchangeRepository;
 
-//Nwm czy mozna mockowac feign ale wrzucilem w razie czego
-    @Mock
+    @SpyBean
     FeignExchangeService feignExchangeService;
 
-    @InjectMocks
+    @SpyBean
     private ExchangeService exchangeService;
-
-
 
     @Test
     public void shouldReturnFalse() {
@@ -50,16 +48,18 @@ public class ExchangeServiceTests {
         assert exchangeService.isExchangeValid("USD");
         assert exchangeService.isExchangeValid("EUR");
     }
-//Null wyrzuca
+
     @Test
     public void shouldConvert(){
         String from = "USD";
         String to = "PLN";
-        Double amount = 100.0;
-        Double convertAmount = 420.0;
-        double rate = 4.2;
-        rate = feignExchangeService.getFeignExchange(from,to).getRate(to);
-        assert exchangeService.convert(from,to,amount).equals(convertAmount);
+
+        var amount1 =  exchangeService.convert(from,to,100.0);
+        var amount2 =  exchangeService.convert(from,to,100.0);
+        var amount3 =  exchangeService.convert(from,to,25.0);
+
+        assert amount1.equals(amount2);
+        assert !amount1.equals(amount3);
     }
 
     @Test
@@ -78,9 +78,14 @@ public class ExchangeServiceTests {
         Result result1 = new Result(1,"USD", "PLN", 100.0, 420.0);
         Result result2 = new Result(2,"USD", "PLN", 200.0, 840.0);
         List<Result> resultList = new ArrayList<>();
+
        resultList.add(result1);
        resultList.add(result2);
-        when(exchangeRepository.findAll()).thenReturn(resultList);
+
+        exchangeRepository.saveAll(resultList);
+
+        //when(exchangeRepository.findAll()).thenReturn(resultList);
+
         Stats stats = exchangeService.getStats();
 
         assertEquals(stats.getMax(), result2.getAmountConverted() );
