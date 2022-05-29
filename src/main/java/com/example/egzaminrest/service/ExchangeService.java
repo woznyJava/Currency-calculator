@@ -14,7 +14,6 @@ import java.util.*;
 
 @Service
 @RequiredArgsConstructor
-
 public class ExchangeService {
     private final FeignExchangeService feignExchangeService;
     private final ExchangeRepository exchangeRepository;

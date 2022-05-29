@@ -72,7 +72,6 @@ public class ExchangeControllerTests {
                 .andExpect(status().isBadRequest());
     }
 
-
     @Test
     public void shouldReturnStats() throws Exception {
         ExchangeRequest exchangeRequest = new ExchangeRequest("USD", "PLN", 100.0);
@@ -100,6 +99,5 @@ public class ExchangeControllerTests {
                     assertThat((String) jsonData.get("theMostPopularFrom") == "USD");
                 });
     }
-
 }
 
