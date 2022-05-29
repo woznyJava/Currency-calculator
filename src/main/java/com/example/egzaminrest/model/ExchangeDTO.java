@@ -12,8 +12,11 @@ public class ExchangeDTO {
     private String date;
     private Map<String, Double> rates;
 
-    public Double getRate(String name) {
-        return this.rates.get(name);
+    public Double getRate(String to) {
+        return this.rates.get(to
+
+
+        );
     }
 }
 
