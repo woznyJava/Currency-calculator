@@ -99,6 +99,5 @@ public class ExchangeControllerTests {
                     assertThat((String) jsonData.get("theMostPopularFrom") == "USD");
                 });
     }
-
 }
 
