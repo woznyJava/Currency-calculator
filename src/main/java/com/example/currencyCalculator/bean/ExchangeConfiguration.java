@@ -21,6 +21,6 @@ public class FeignBean {
                 .decoder(new GsonDecoder())
                 .logger(new Slf4jLogger(FeignClient.class))
                 .logLevel(Logger.Level.FULL)
-                .target(FeignClient.class, "https://api.apilayer.com/exchangerates_data/latest");
+                .target(FeignClient.class, "https://api.apilayer.com/");
     }
 }

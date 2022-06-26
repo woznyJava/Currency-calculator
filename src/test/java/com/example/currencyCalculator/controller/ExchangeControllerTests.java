@@ -39,7 +39,7 @@ public class ExchangeControllerTests {
 
     @Test
     public void shouldReturnFromUnknownError() throws Exception {
-        ExchangeRequest exchangeRequest = new ExchangeRequest("ProszeZaliczEgzamin", "PLN", 100.0);
+        ExchangeRequest exchangeRequest = new ExchangeRequest("UNCORRECT", "PLN", 100.0);
 
         Gson gson = new Gson();
         String json = gson.toJson(exchangeRequest);
